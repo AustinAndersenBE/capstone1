@@ -1,0 +1,15 @@
+Project Proposal:
+
+The goal of the website is to be a vocab app where users have a fun way of improving their vocab and using those words in everyday practical scenarios.
+Users who want to improve their vocab or english learners might find this website helpful. 
+I plan on using a vocab API that gives you definitions, part of speech, sentence, etc of a word
+The schema would be: A table would be vocabulary table with a serial primary key and the word. The second table would be the definitions table which has an ID, definition, a boolean (is correct), and a foreign key linking to the vocab table. I would also make a table to store the user’s login credentials. ID, username, password. Then I would want to add a sentences table that associates each sentence with a user and a vocab word. Point storing
+
+My API might have rate limiting issues so I will also try to limit the rate of the users.
+I need to secure the user’s passwords with hash + salting
+
+My app will have a login, allow user to add words to a list and then the app will generate a quiz based on the list, there will be a page for people to create sentences for their words
+
+The home page will probably have a sign up and login button with nav bars on top. Maybe the homepage will also have a heading with a brief description about the webpage and why you should use it.
+
+It will be more than CRUD because there will be quizzes created from the worlds. Users can make their own sentences and it will be posted on the website and then other users will be able to upvote the sentences based on how likely you will use it in everyday conversations/creativity. User will also have favorite words that they can save to their account. Stretch goals would be maybe adding a filtering to filter the user sentences by most recent/highest upvoted
