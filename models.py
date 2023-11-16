@@ -47,7 +47,6 @@ class SentenceUpvotes(db.Model):
     sentence_id = Column(Integer, ForeignKey('sentences.id', ondelete='CASCADE'), primary_key=True)
 
 
-
 class Definition(db.Model):
     __tablename__ = 'definitions'
     id = Column(Integer, primary_key=True)

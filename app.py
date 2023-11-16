@@ -150,6 +150,7 @@ def quiz():
     return render_template('quiz.html')
 
 #Sentence form page
+#server side processing of submitting a new sentence
 @app.route('/sentences/new', methods=['GET', 'POST'])
 @login_required
 def create_sentence():
@@ -164,15 +165,15 @@ def create_sentence():
         processed_sentence = sentence_text.lower()
         processed_sentence = processed_sentence.translate(str.maketrans('', '', punctuation))
         
-        vocab_words = set(word.strip() for word in form.vocab_words.data.lower().split(',')) # create a set of vocab words
+        vocab_words = set(word.strip() for word in form.vocab_words.data.lower().split(',')) # create a set of vocab words from user input
         vocab_objects = Vocab.query.filter(Vocab.word.in_(vocab_words)).all() #filters Vocab table to retrieve entries where word matches the vocab_words
-        vocab_dict = {vocab.word: vocab for vocab in vocab_objects}
+        vocab_dict = {vocab.word: vocab for vocab in vocab_objects} #create a dictionary, key is the word and value is the vocab object
         
         for word in vocab_words:
             if word in processed_sentence:  # check if vocab word is in the sentence
                 vocab = vocab_dict.get(word)
-                if vocab:
-                    sentence_vocab = SentenceVocab(sentence_id=sentence.id, vocab_id=vocab.id)
+                if vocab: #if there is a vocab object
+                    sentence_vocab = SentenceVocab(sentence_id=sentence.id, vocab_id=vocab.id) 
                     db.session.add(sentence_vocab)
                 
         db.session.commit()        
