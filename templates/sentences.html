@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sentences_styles.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4 mb-4">
+        <h1 class="mb-4">Sentences</h1>
+
+        <div class="row">
+            {% for sentence in sentences %}
+                <div class="col-12 mb-3">
+                    <p class="sentence-text">
+                        {% set sentence_text = sentence.sentence %}
+                        {% for word in sentence.vocab_words %}
+                            {% set sentence_text = sentence_text.replace(word.word, '<strong>' + word.word + '</strong>') %}
+                        {% endfor %}
+                        {{ sentence_text | safe }}
+                    </p>
+                    <div class="text-right">
+                        <small class="text-muted">{{ sentence.user.username }}</small>
+                        <form action="{{ url_for('upvote', sentence_id=sentence.id) }}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-link">Upvote ({{ sentence.upvotes if sentence.upvotes is not none else 0 }})</button>
+                        </form>
+                        {% if g.user.id == sentence.user.id %}
+                            <form action="{{ url_for('delete_sentence', sentence_id=sentence.id) }}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-link">Delete</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <button class="btn btn-primary mt-4" onclick="location.href='{{ url_for('create_sentence') }}'">Create New Sentence</button>
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+#word-list {
+    list-style-type: none; 
+    line-height: 1.6;
+    margin-top: 20px; 
+    padding-left: 30px;
+    text-align: left;
+}
+
+#word-list li {
+    text-indent: 30px;
+}
