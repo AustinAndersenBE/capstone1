@@ -161,11 +161,11 @@ def create_sentence():
         db.session.add(sentence)
         db.session.commit()
         
-        # make sentence lower case and remove punctuation to check for vocab words
+        # to check for vocab words in the sentence, we make sentence lowercase and remove punctuation
         processed_sentence = sentence_text.lower()
         processed_sentence = processed_sentence.translate(str.maketrans('', '', punctuation))
         
-        vocab_words = set(word.strip() for word in form.vocab_words.data.lower().split(',')) # create a set of vocab words from user input
+        vocab_words = set(word.strip() for word in form.vocab_words.data.lower().split(',')) # from user input, create a set of vocab. (delineate based on comma)
         vocab_objects = Vocab.query.filter(Vocab.word.in_(vocab_words)).all() #filters Vocab table to retrieve entries where word matches the vocab_words
         vocab_dict = {vocab.word: vocab for vocab in vocab_objects} #create a dictionary, key is the word and value is the vocab object
         
@@ -173,7 +173,7 @@ def create_sentence():
             if word in processed_sentence:  # check if vocab word is in the sentence
                 vocab = vocab_dict.get(word)
                 if vocab: #if there is a vocab object
-                    sentence_vocab = SentenceVocab(sentence_id=sentence.id, vocab_id=vocab.id) 
+                    sentence_vocab = SentenceVocab(sentence_id=sentence.id, vocab_id=vocab.id)  #if we confirm that the vocab exists in the db, we then add the association entry
                     db.session.add(sentence_vocab)
                 
         db.session.commit()        
@@ -196,7 +196,6 @@ def upvote(sentence_id):
         if not existing_upvote:
             new_upvote = SentenceUpvotes(user_id=g.user.id, sentence_id=sentence_id)
             db.session.add(new_upvote)
-
 
             sentence.upvotes = (sentence.upvotes or 0) + 1
 

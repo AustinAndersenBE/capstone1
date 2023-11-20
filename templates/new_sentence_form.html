@@ -6,11 +6,10 @@
         {{ form.hidden_tag() }}
         <p>
             {{ form.sentence.label }}<br>
-            {{ form.sentence(size=32) }}
-        </p>
+            {{ form.sentence(size=32, id='sentence') }}
         <p>
             {{ form.vocab_words.label }}<br>
-            {{ form.vocab_words(size=32) }}
+            {{ form.vocab_words(size=32, id='vocab_words') }} 
         </p>
         <p><input type="submit" value="Submit"></p>
     </form>

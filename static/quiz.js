@@ -1,7 +1,7 @@
 // Load the words for the quiz
 async function loadWords(level) {
     try {
-        // Fetch words for the level
+        // Fetch 7 random words for the level
         const response = await fetch(`/api/vocab/${level}`);
         const words = await response.json();
 
@@ -68,6 +68,7 @@ function createDefinitionElement(definition) {
     return definitionElement;
 }
 
+//Iterating over an array of strings and for each one, get the element in the DOM corresponding to the level
 ['beginner', 'intermediate', 'advanced'].forEach(level => {
     const button = document.getElementById(level);
     if (button) {
