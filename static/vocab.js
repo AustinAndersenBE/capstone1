@@ -1,3 +1,4 @@
+//Once the user selects the difficulty level, displays 7 random vocab words with their part of speech and definitions.
 
 // Fetching words from database
 const fetchWords = async (level) => {
@@ -30,7 +31,7 @@ const updateWordList = async (words) => {
     wordList.innerHTML = '';
 
     // listItems is an array of HTML elements
-    const listItems = await Promise.all(words.map(async (wordObj) => { //for each word, get the word details and create a list item
+    const listItems = await Promise.all(words.map(async (wordObj) => { //creates array of promises each one fetching word details and creating a ListItem
         const data = await fetchWordDetails(wordObj.word);
         return createListItem(wordObj.word, data); 
     }));

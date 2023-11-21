@@ -1,3 +1,6 @@
+// This script loads 7 random words at a select difficulty and generates 4 answers, 1 of which is correct.
+// Users can click on the definition and the correct answer will be highlighted green, incorrect, red.
+
 // Load the words for the quiz
 async function loadWords(level) {
     try {

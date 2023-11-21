@@ -75,11 +75,13 @@ def get_definitions(word_id):
         'is_correct': definition.is_correct
     } for definition in definitions])
 
+#API to get all the vocab words
 @app.route('/api/vocab_words', methods=['GET'])
 def get_vocab_all():
     vocab_words = Vocab.query.all()
     return jsonify([vocab.word for vocab in vocab_words])
 
+##### User Authentication #####
 
 # User Login
 @app.route('/login', methods=['GET', 'POST'])
